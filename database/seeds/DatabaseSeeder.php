@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
       // unutk memanggil Seeder yang banyak ke database tambahkan syntak dibawah ini
-        $this->call(UsersTableSeeder::class);
+        $this->call(UsersSeeder::class);
+        $this->call(BooksSeeder::class);
     }
 }

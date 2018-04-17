@@ -10,14 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/jquery-3.2.1.min.js') }}" defer></script>
-    <script src="{{ asset('js/popper.min.js') }}" defer></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
-
-    {{-- datatable --}}
-    <script src="{{ asset('js/jquery.dataTables.min.js') }}" defer></script>
-    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -47,7 +39,16 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @if (auth()->check())
+                          <li>
+                            <a class="nav-link" href="{{ route('home') }}">Beranda</a>
+                          </li>
+                          @role('admin')
+                          <li>
+                            <a class="nav-link" href="{{ route('authors.index') }}">Penulis</a>
+                          </li>
+                          @endrole
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -81,9 +82,27 @@
         </nav>
 
         <main class="py-4">
+          @if (session()->has('flash_notification.message'))
+            <div class="container">
+              <div class="alert alert-{{ session()->get('flash_notification.level') }}">
+                <button type="button" class="close" data-dismiss="alert"
+                aria-hidden="true">&times;</button>
+                {!! session()->get('flash_notification.message') !!}
+              </div>
+            </div>
+
+          @endif
             @yield('content')
         </main>
     </div>
-    @yield('script')
+    <!-- Scripts -->
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+    {{-- datatable --}}
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

@@ -29,7 +29,7 @@ class Author extends Model
         $messageHtml .= '<ul>';
 
         foreach ($author->books as $book) {
-          $messageHtml .= "<li>$book->title<li>";
+          $messageHtml .= "<li>$book->title</li>";
         }
 
         $messageHtml .= '<ul>';

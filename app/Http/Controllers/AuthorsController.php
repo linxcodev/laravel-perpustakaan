@@ -57,4 +57,18 @@ class AuthorsController extends Controller
         'message' => 'Berhasil menyimpan data penulis dengan nama '.$author->name
     ]);
   }
+
+  // show using data binding
+  public function show(Author $author)
+  {
+    return view('authors.show', compact('author'));
+  }
+
+  // show using method general
+  // public function show($id)
+  // {
+  //   $author = Author::findOrFail($id);
+  //
+  //   return view('authors.show', compact('author'));
+  // }
 }

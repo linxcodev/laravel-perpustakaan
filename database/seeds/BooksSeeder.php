@@ -1,8 +1,8 @@
 <?php
-
-use Illuminate\Database\Seeder;
-use App\Author;
 use App\Book;
+use App\Author;
+use Illuminate\Database\Seeder;
+
 class BooksSeeder extends Seeder
 {
     /**

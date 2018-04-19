@@ -47,6 +47,9 @@
                           <li>
                             <a class="nav-link" href="{{ route('authors.index') }}">Penulis</a>
                           </li>
+                          <li>
+                            <a class="nav-link" href="{{ route('books.index') }}">Buku</a>
+                          </li>
                           @endrole
                         @endif
                     </ul>

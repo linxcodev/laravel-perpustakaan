@@ -28,7 +28,7 @@ class BookRequest extends FormRequest
             return [
               'title' => 'required|unique:books,title',
               'author_id' => 'required|exists:authors,id',
-              'amount' => 'required|red|numeric',
+              'amount' => 'required|numeric',
               'cover' => 'image|max:2048'
             ];
             case 'PUT':

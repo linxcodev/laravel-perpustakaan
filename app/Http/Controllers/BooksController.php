@@ -103,9 +103,7 @@ class BooksController extends Controller
      */
     public function show(Book $book)
     {
-        $authors = Author::all();
-
-        return view('books.show', compact('book', 'authors'));
+        return view('books.show', compact('book'));
     }
 
     /**
@@ -190,9 +188,7 @@ class BooksController extends Controller
         }
       }
 
-      if (!$book->delete()) {
-        return redirect()->back();
-      }
+      $book->delete();
 
       return redirect()->route('books.index')->with('flash_notification',[
           'level' => 'danger',

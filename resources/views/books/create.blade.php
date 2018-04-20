@@ -34,7 +34,7 @@
                         <div class="form-group">
                           <label for="name" class="col-md-2 control-label">Penulis</label>
                           <div class="col-md-10">
-                            <select class="form-control {{ $errors->has('author_id') ? 'is-invalid' : '' }}" name="author_id">
+                            <select class="form-control js-selectize {{ $errors->has('author_id') ? 'is-invalid' : '' }}" name="author_id">
                               <option>--Pilih Penulis--</option>
                                 @foreach ($authors as $author)
                                   <option value="{{ $author->id }}">{{ $author->name }}</option>
@@ -87,4 +87,12 @@
           </div>
       </div>
   </div>
+
+  {{-- @push('scripts')
+    $(document).ready(function () {
+      $('.js-selectize').selectize({
+        sortField : 'text'
+      })
+    });
+  @endpush --}}
 @endsection

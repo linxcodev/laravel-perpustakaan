@@ -6,9 +6,24 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-
                 <div class="card-body">
-                    Selemat Datang Member
+                    <table class="table">
+                      <tbody>
+                        <tr>
+                          <td class="text-muted">Buku yang sedang dipinjam :</td>
+                          <td>
+                            @if ($borrowLogs->count() == 0)
+                              Tidak ada buku yang dipinjam
+                            @endif
+                            <ul>
+                              @foreach ($borrowLogs as $log)
+                                <li>{{ $log->book->title }}</li>
+                              @endforeach
+                            </ul>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </div>
             </div>
         </div>

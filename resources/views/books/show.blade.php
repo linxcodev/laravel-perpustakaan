@@ -17,7 +17,7 @@
                   {{-- {{ $author->name }} --}}
                   <div class="card-body">
                       Judul : <strong>{{ $book->title }}</strong> <br>
-                      {{-- Penulis : <strong @if ($book->author->id == $author->id)@endif>{{ $author->name }}</strong> --}}
+                      {{-- Penulis : <strong> {{ $authors->name }}</strong> --}}
                       Jumlah : <strong>{{ $book->amount }}</strong> <br>
                       Cover : <br>
                        <image src="{{ asset('cover/' . $book->cover) }}"

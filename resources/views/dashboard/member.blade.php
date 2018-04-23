@@ -17,7 +17,19 @@
                             @endif
                             <ul>
                               @foreach ($borrowLogs as $log)
-                                <li>{{ $log->book->title }}</li>
+                                <li>
+                                  {{ $log->book->title }}
+                                  <form class="form-inline js-confirm"
+                                  action="{{ route('member.books.return', $log->book->id) }}" method="post"
+                                  data-confirm="Apakah anda ingin megembalikan buku {{ $log->book->title }}">
+                                  @csrf
+                                  @method('PATCH')
+
+                                  {{-- {{ $log->book->title }} --}}
+
+                                  <button type="submit" class="btn btn-primary">Kembalikan</button>
+                                  </form>
+                                </li>
                               @endforeach
                             </ul>
                           </td>

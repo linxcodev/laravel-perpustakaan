@@ -140,7 +140,7 @@ class BooksController extends Controller
         if (!$book->update($request->all())) {
           return redirect()->back();
         }
-        
+
         $book->update($request->all());
 
         if ($request->hasFile('cover')) {
@@ -189,6 +189,9 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
 
+      if (!$book->delete()) {
+        return redirect()->back();
+      }
       if ($book->cover) {
         $old_image = $book->cover;
         $filePath = public_path() . DIRECTORY_SEPARATOR . 'cover' .

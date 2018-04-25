@@ -31,6 +31,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    //bawaan
+    protected $cast = ['is_verified'];
+
     public function borrowLogs()
     {
       return $this->hasMany(BorrowLog::class);

@@ -59,8 +59,8 @@ class User extends Authenticatable
 
     public function sendEmailVerification()
     {
-      $this->generateVerificationCode();
-      
+      $token = $this->generateVerificationCode();
+
       $user = $this;
 
       Mail::send('auth.emails.verification', compact('user', 'token'), function ($m) use

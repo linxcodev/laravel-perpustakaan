@@ -1,3 +1,13 @@
-Klik link berikut untuk melakukan aktivasi :
-<a href="{{ $link = url('auth/verify', $token) .
-'?email='. urlencode($user->email) }}">{{ $link }}</a>
+@component('mail::message')
+# Verifikasi Email
+
+Klick link Berikut untuk aktivasi
+
+@component('mail::button', ['url' => url('auth/verify', $user->verification_token) .
+'?email='. urlencode($user->email)])
+Verifikasi
+@endcomponent
+
+Salam,<br>
+{{ config('app.name') }}
+@endcomponent

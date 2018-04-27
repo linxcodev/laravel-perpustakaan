@@ -5,6 +5,7 @@ namespace App;
 use App\Book;
 use App\Exceptions\BookException;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SendVerification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -63,10 +64,12 @@ class User extends Authenticatable
 
       $user = $this;
 
-      Mail::send('auth.emails.verification', compact('user', 'token'), function ($m) use
-      ($user) {
-        $m->to($user->email, $user->name)->subject('Verifikasi akun perpustakaan');
-      });
+      Mail::to($user)->send(new SendVerification($user));
+
+      // Mail::send('auth.emails.verification', compact('user', 'token'), function ($m) use
+      // ($user) {
+      //   $m->to($user->email, $user->name)->subject('Verifikasi akun perpustakaan');
+      // });
     }
 
     public function generateVerificationCode()

@@ -8,20 +8,56 @@
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a  href="{{ route('home') }}">Beranda</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('members.index') }}">Member</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data Member</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $member->name }}</li>
                   </ol>
               </nav>
               <div class="card">
-                  <div class="card-header">Data Member</div>
-
-                  {{-- {{ $author->name }} --}}
+                  <div class="card-header">{{ $member->name }}</div>
                   <div class="card-body">
-                      Judul : <strong>{{ $book->title }}</strong> <br>
-                      {{-- Penulis : <strong> {{ $book->authors->name }}</strong> --}}
-                      Jumlah : <strong>{{ $book->amount }}</strong> <br>
-                      Cover : <br>
-                       <image src="{{ asset('cover/' . $book->cover) }}"
-                         class="rounded float-left" weight="200px" height="200px">
+                    <p>Buku yang sedang dipinjam</p>
+                    <table class="table table-condensed table-striped">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Judul</th>
+                          <th>Tanggal Pinjaman</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @forelse ($member->borrowLogs()->borrowed()->get() as $log)
+                          <tr>
+                            <td>{{ $log->book->title }}</td>
+                            <td>{{ $log->created_at->format('d/m/Y') }}</td>
+                          </tr>
+                        @empty
+                          <tr>
+                            <td colspan="2" class="alert alert-warning text-center">No data</td>
+                          </tr>
+                        @endforelse
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="card-body">
+                    <p>Buku yang telah dikembalikan</p>
+                    <table class="table table-condensed table-striped">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th>Judul</th>
+                          <th>Tanggal Pengembalian</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @forelse ($member->borrowLogs()->returned()->get() as $log)
+                          <tr>
+                            <td>{{ $log->book->title }}</td>
+                            <td>{{ $log->updated_at->format('d/m/Y') }}</td>
+                          </tr>
+                        @empty
+                          <tr>
+                            <td colspan="2" class="text-center">No data</td>
+                          </tr>
+                        @endforelse
+                      </tbody>
+                    </table>
                   </div>
               </div>
           </div>

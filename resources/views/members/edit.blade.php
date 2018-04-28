@@ -4,100 +4,44 @@
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-md-12">
-            {{-- <nav aria-label="breadcrumb">
-              <ol class=breadcrumb"">
-
-                  <li class="breadcrumb-item">
-                    <a  href="{{ route('home') }}">Beranda</a>
-                  </li>
-                  <li class="breadcrumb-item active" aria-current="page">
-                    Penulis
-                  </li>
-
-              </ol>
-            </nav> --}}
               <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a  href="{{ route('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item"><a  href="{{ route('books.index') }}">Buku</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ubah Buku</li>
+                    <li class="breadcrumb-item"><a  href="{{ route('members.index') }}">Member</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Member</li>
                   </ol>
               </nav>
               <div class="card">
                   <div class="card-header">Ubah Buku</div>
 
                   <div class="card-body">
-                    <form class="form-horizontal" action="{{ route('books.update', $book->id) }}" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal" action="{{ route('members.update', $member->id) }}" method="post">
                         @csrf
                         @method('PATCH')
 
                         <div class="form-group">
-                          <label for="name" class="col-md-2 control-label">Judul</label>
+                          <label for="name" class="col-md-2 control-label">Member Nama</label>
                           <div class="col-md-10">
-                            <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}"
-                            id="title" name="title" value="{{ $book->title }}" autofocus>
-                            @if ($errors->has('title'))
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                            id="name" name="name" value="{{ $member->name }}" autofocus>
+                            @if ($errors->has('name'))
                               <span class="invalid-feedback">
-                                <strong>{{ $errors->first('title') }}</strong>
+                                <strong>{{ $errors->first('name') }}</strong>
                               </span>
                             @endif
                           </div>
                         </div>
 
                         <div class="form-group">
-                          <label for="name" class="col-md-2 control-label">Penulis</label>
+                          <label for="email" class="col-md-2 control-label">Member Email</label>
                           <div class="col-md-10">
-                            <select class="form-control js-selectize {{ $errors->has('author_id') ? 'is-invalid' : '' }}" name="author_id">
-                                @foreach ($authors as $author)
-                                  <option value="{{ $author->id }}"
-                                    @if ($book->author->id == $author->id)
-                                      selected
-                                    @endif>
-                                  {{ $author->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @if ($errors->has('author_id'))
+                            <input type="text" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                            id="email" name="email" value="{{ $member->email }}" autofocus>
+                            @if ($errors->has('email'))
                               <span class="invalid-feedback">
-                                <strong>{{ $errors->first('author_id') }}</strong>
+                                <strong>{{ $errors->first('email') }}</strong>
                               </span>
                             @endif
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="name" class="col-md-2 control-label">Jumlah</label>
-                          <div class="col-md-10">
-                            <input type="number" class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}"
-                            id="amount" name="amount" value="{{ $book->amount }}">
-                            @if ($errors->has('amount'))
-                              <span class="invalid-feedback">
-                                <strong>{{ $errors->first('amount') }}</strong>
-                              </span>
-                            @endif
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="name" class="col-md-2 control-label">Cover</label>
-                          <div class="col-md-10">
-                            <input type="file" class="form-control"
-                            id="cover" name="cover" value="{{ old('cover') }}">
-                            @if ($errors->has('cover'))
-                              <span class="invalid-feedback">
-                                <strong>{{ $errors->first('cover') }}</strong>
-                              </span>
-                            @endif
-                          </div>
-                        </div>
-
-                        <div class="form-group form-horizontal">
-                          <div class="col-2"></div>
-                          <div class="col-10">
-                            @if ($book->cover)
-                              <image src="{{ asset('cover/' . $book->cover) }}"
-                                class="rounded float-left" weight="200px" height="200px">
-                              @endif
                           </div>
                         </div>
 

@@ -35,7 +35,8 @@ class StoreMemberRequest extends FormRequest
         case 'PATCH':
           return [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users'
+            'email' => 'required|email|max:255|unique:users,email,' .
+            $this->route('member.id'),
           ];
           break;
       }

@@ -54,6 +54,9 @@
                           <li>
                             <a class="nav-link" href="{{ route('members.index') }}">Member</a>
                           </li>
+                          <li>
+                            <a class="nav-link" href="{{ route('statistics.index') }}">Data Peminjaman</a>
+                          </li>
                           @endrole
                           <li class="nav-item">
                             <a class="nav-link" href="{{ route('profile') }}">Profile</a>

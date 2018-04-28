@@ -129,6 +129,8 @@ class MembersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // jika member sudah pernah meminjam buku, tidak boleh dihapus
     public function destroy(User $member)
     {
         if ($member->hasRole('member')) {

@@ -23,10 +23,6 @@
     <div class="form-group-row">
       <div class="col-sm-4"></div>
       <div class="col-md-6">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Upload</button>
       </div>
     </div>
-
-
-  </form>
-</div>

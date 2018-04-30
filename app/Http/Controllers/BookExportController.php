@@ -2,53 +2,71 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use Excel;
 use App\Book;
-use App\Author;
 use Illuminate\Http\Request;
+use App\Author;
 
-class BookExportController extends Controller
-{
-    public function exportXls()
-    {
-      $authors = Author::pluck('name', 'id')->all();
 
-      return view('books.export', compact('authors'));
-    }
+ class BookExportController extends Controller
+ {
 
-    public function exportPost(Request $request)
-    {
-      $request->validate([
-        'author_id' => 'required'
-      ],[
-        'author_id.required' => 'Anda belum memilih penulis. silahkan pilih penulis!'
-      ]);
+	public function export()
+ 	{
+ 		$authors = Author::pluck('name', 'id')->all();
+ 		return view('books.export', compact('authors'));
+ 	}
 
-      $books = Book::whereIn('author_id', $request->author_id)->get();
+ 	public function exportPost(Request $request)
+ 	{
+ 		$request->validate([
+			'author_id' =>'required',
+			'type' => 'required|in:pdf,xls'
+ 		],[
+ 			'author_id.required' => 'Anda Belum memilih penulis, silahkan pilih minimal satu penulis'
+ 		]);
 
-      Excel::create('Data Buku Perpustakaan', function ($excel) use ($books)
-      {
-        // set property
-        $excel->setTitle('Data Buku')->setCreator(auth()->user()->name);
+ 		$books = Book::whereIn('author_id', $request->author_id)->get();
 
-        $excel->sheet('Data Buku', function ($sheet) use ($books) {
-          $row = 1;
-          $sheet->row($row, [
-            'judul',
-            'jumlah',
-            'Stock',
-            'Penulis'
-          ]);
+		// ucfirst() merubah hruf menjadi awal dan untuk memanggil method pdf atau xls
+		$handler = 'export' . ucfirst($request->type);
 
-          foreach ($books as $book) {
-            $sheet->row(++$row, [
-              $book->title,
-              $book->amount,
-              $book->stock,
-              $book->author->name,
-            ]);
-          }
-        });
-      })->export('xls');
-    }
-}
+		return $this->$handler($books);
+	}
+
+	public function exportPdf($books)
+	{
+		$pdf = PDF::loadView('pdf.books' ,compact('books'));
+
+		return $pdf->stream('data-buku pdf');
+	}
+
+	public function exportXls($books)
+	{
+ 		Excel::create('Data buku perpustakaan', function($excel) use ($books){
+
+ 			$excel->setTitle('Data Buku')->setCreator(auth()->user()->name);
+
+ 			$excel->sheet('Data buku', function ($sheet) use ($books){
+ 				$row = 1;
+ 				$sheet->row($row,[
+ 					'Title',
+ 					'Amount',
+ 					'Stock',
+ 					'Writers'
+ 				]);
+
+ 				foreach ($books as $book) {
+ 					$sheet->row(++$row,[
+ 						$book->title,
+ 						$book->ammount,
+ 						$book->stock,
+ 						$book->author->name,
+ 					]);
+ 				}
+ 			})->export('xls');
+ 		});
+ 	}
+
+ }

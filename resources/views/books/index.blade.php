@@ -13,7 +13,7 @@
               </nav>
               <div class="card">
                   <div class="card-header">Buku
-                    <a class="btn btn-success float-right" href="{{ route('export.books.xls') }}">Export</a>
+                    <a class="btn btn-success float-right" href="{{ route('export.books') }}">Export</a>
                     <a class="btn btn-primary float-right" style=" margin-right: 10px" href="{{ route('books.create') }}">Tambah</a>
                   </div>
 

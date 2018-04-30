@@ -7,14 +7,11 @@
               <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a  href="{{ route('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Statistik</li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Peminjaman</li>
                   </ol>
               </nav>
               <div class="card">
-                  <div class="card-header">Statistik
-                    {{-- <a class="btn btn-primary float-right" href="{{ route('members.create') }}">Tambah</a> --}}
-                  </div>
-
+                  <div class="card-header">Data Peminjaman</div>
                   <div class="card-body">
                       {!! $html->table(['class' => 'table-striped']) !!}
                   </div>
